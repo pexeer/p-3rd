@@ -1,13 +1,13 @@
 [submodule "googletest"]
-	path = third_party/googletest
+	path = googletest
 	url = https://github.com/google/googletest.git
 	branch = release-1.7.0
 [submodule "gflags"]
-	path = third_party/gflags
+	path = gflags
 	url = https://github.com/gflags/gflags.git
 	branch = v2.1.2
 [submodule "protobuf"]
-	path = third_party/protobuf
+	path = protobuf
 	url = https://github.com/google/protobuf.git
 	branch = v3.0.0-beta-2
 [submodule "zlib"]
