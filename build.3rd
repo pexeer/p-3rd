@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 set -e
-#set -x
+set -x
 
 WORK_DIR=$(cd "$(dirname "$BASH_SOURCE")"; pwd)
+CPU_NUM=$(grep "physical id" /proc/cpuinfo | wc -l)
+PARALLEL=$((CPU_NUM + 1))
 source pkg.define
 
 if (($# == 0)); then
@@ -22,6 +24,8 @@ fi
 mkdir -p "$PREFIX_DIR/include"
 mkdir -p "$PREFIX_DIR/lib"
 mkdir -p "$WORK_DIR"/build
+mkdir -p "$WORK_DIR"/pkg
+mkdir -p "$WORK_DIR"/src
 
 # build package
 for pkg in $PKG_LIST; do
@@ -34,5 +38,4 @@ for pkg in $PKG_LIST; do
         BUILD_$pkg
     fi
 done
-
 
