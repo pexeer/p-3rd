@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+set -e
+#set -x
+
+WORK_DIR=$(cd "$(dirname "$BASH_SOURCE")"; pwd)
+source pkg.define
+
+if (($# == 0)); then
+    F_ALL=1
+else
+    for arg in "$@"; do
+        if ((F_$arg == 1)); then
+            ((F_$arg = 2))
+        else
+            echo "Unkown module: $arg";
+            exit 1;
+        fi
+    done
+fi
+
+mkdir -p "$PREFIX_DIR/include"
+mkdir -p "$PREFIX_DIR/lib"
+mkdir -p "$WORK_DIR"/build
+
+# build package
+for pkg in $PKG_LIST; do
+    if ((F_ALL==1 || F_$pkg==2)); then
+        cd $WORK_DIR
+        echo downloading $pkg
+        download_pkg $pkg
+        echo building $pkg
+        rm -rf build && mkdir build && cd build
+        BUILD_$pkg
+    fi
+done
+
+

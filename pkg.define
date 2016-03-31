@@ -1,0 +1,67 @@
+SRC_DIR=$WORK_DIR/src
+PREFIX_DIR=$WORK_DIR/installed
+PKG_DIR=$WORK_DIR/pkg
+
+PKG_LIST="gtest gflags protobuf zlib"
+
+export PATH=$PATH:$PREFIX_DIR/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_DIR/lib
+export LIBRARY_PATH=$LIBRARY_PATH:$PREFIX_DIR/lib
+
+for x in $PKG_LIST; do
+    declare F_$x=1
+done
+
+download_pkg() {
+    local file_url=0
+    local file_path=$PKG_DIR/${1}.zip
+    local src_path=$SRC_DIR/$1
+    eval file_url="\$URL_$1"
+    if [ -n "$file_url" ]; then
+        return 0
+    fi
+    if [ -e $file_path ]; then
+        echo "skip downald "$1.zip
+    else
+        wget $file_url -O $file_path
+    fi
+    rm -rf $src_path
+    unzip $file_path -d $src_path
+    cd $src_path && mv -f * $1
+    cd $WORK_DIR
+}
+
+URL_gtest='https://github.com/google/googletest/archive/master.zip'
+BUILD_gtest() {
+    local build_path=$SRC_DIR/gtest/gtest
+    cmake $build_path -DCMAKE_INSTALL_PREFIX=$PREFIX_DIR
+    make
+    make install
+}
+
+URL_gflags='https://github.com/gflags/gflags/archive/v2.1.2.zip'
+BUILD_gflags() {
+    local build_path=$SRC_DIR/gflags/gflags
+    cmake $build_path -DCMAKE_INSTALL_PREFIX=$PREFIX_DIR
+    make
+    make install
+}
+
+URL_zlib='https://github.com/madler/zlib/archive/v1.2.8.zip'
+BUILD_zlib() {
+    local build_path=$SRC_DIR/zlib/zlib
+    cmake $build_path -DCMAKE_INSTALL_PREFIX=$PREFIX_DIR
+    make
+    make install
+}
+
+URL_protobuf='https://github.com/google/protobuf/archive/v3.0.0-beta-2.zip'
+BUILD_protobuf() {
+    local build_path=$SRC_DIR/protobuf/protobuf
+    cd $build_path
+    bash autogen.sh
+    ./configure --prefix=$PREFIX_DIR
+    
+    make
+    make install
+}
