@@ -12,6 +12,7 @@ if (($# == 0)); then
   F_ALL=1
 else
   for arg in "$@"; do
+    arg=${arg/-/_}
     if ((F_$arg == 1)); then
       ((F_$arg = 2))
     else
@@ -30,6 +31,7 @@ mkdir -p "$WORK_DIR"/src
 # build package
 if ((F_ALL == 1)); then
   for pkg in $PKG_DEFAULT_LIST; do
+    pkg=${pkg/-/_}
     cd $WORK_DIR
     echo downloading $pkg
     download_pkg $pkg
@@ -39,6 +41,7 @@ if ((F_ALL == 1)); then
   done
 else
   for pkg in $PKG_LIST; do
+    pkg=${pkg/-/_}
     if ((F_$pkg==2)); then
       cd $WORK_DIR
       echo downloading $pkg
