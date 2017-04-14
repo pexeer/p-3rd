@@ -1,27 +1,42 @@
-# p::3rd
+p::3rd, a c++ package manage tool
+============
 
-build some open source c++ package automatically.
+used to manage third-party open source package, user-local build and install package automatically.
 
-depends on package
-- g++
+![c++11](https://img.shields.io/badge/c++11-only-green.svg)
+![linux](https://img.shields.io/badge/linux-only-green.svg)
+![amd64](https://img.shields.io/badge/x86--64-only-green.svg)
+
+Requirements
+------------
+
+- bash
 - make
 - cmake
+- g++
 
  
-## support to install package
+Support Packages
+------------
+
 - gtest
 - gflags
-- protobuf
 - protobuf3
+- protobuf
 - zlib
 - isa-l
 
 
-## how to use
+How To Use
+------------
+
 ```
 # only install protobuf3
 ./build.3rd protobuf3
 
-# this command will install gtest gflags protobuf3
+# only install zlib
+./build.3rd zlib
+
+# this command will install default package list, which is (gtest + gflags + protobuf3)
 ./build.3rd
 ```
