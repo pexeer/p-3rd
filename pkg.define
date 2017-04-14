@@ -5,8 +5,9 @@ PREFIX_DIR=$WORK_DIR/installed
 PKG_DIR=$WORK_DIR/pkg
 
 #################################################
-PKG_LIST="gtest gflags protobuf zlib"
+PKG_LIST="gtest gflags protobuf protobuf3 zlib"
 #################################################
+PKG_DEFAULT_LIST="gtest gflags protobuf3"
 ## download pkg from internet
 download_pkg() {
     local file_url=0
@@ -48,10 +49,25 @@ BUILD_zlib() {
     cmake $build_path -DCMAKE_INSTALL_PREFIX=$PREFIX_DIR
     make -j$PARALLEL install
 }
+
 ## for protobuf
-URL_protobuf='https://github.com/google/protobuf/archive/v3.0.0-beta-2.zip'
+URL_protobuf=https://github.com/google/protobuf/archive/v2.6.1.zip
 BUILD_protobuf() {
     local build_path=$SRC_DIR/protobuf/protobuf
+    if [ -f $PKG_DIR/gmock-1.7.0.zip ]; then
+        rm -rf $PKG_DIR/gmock-1.7.0
+        unzip $PKG_DIR/gmock-1.7.0.zip -d $build_path
+        mv $build_path/gmock-1.7.0/gtest $build_path/gtest
+    fi
+    cd $build_path
+    bash autogen.sh
+    ./configure --prefix=$PREFIX_DIR
+    make -j$PARALLEL $install
+}
+## for protobuf3
+URL_protobuf3='https://github.com/google/protobuf/archive/v3.0.0.zip'
+BUILD_protobuf3() {
+    local build_path=$SRC_DIR/protobuf3/protobuf3
     if [ -f $PKG_DIR/gmock-1.7.0.zip ]; then
         unzip $PKG_DIR/gmock-1.7.0.zip -d $build_path
         mv $build_path/gmock-1.7.0 $build_path/gmock

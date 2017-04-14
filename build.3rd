@@ -9,16 +9,16 @@ PARALLEL=$((CPU_NUM + 1))
 source pkg.define
 
 if (($# == 0)); then
-    F_ALL=1
+  F_ALL=1
 else
-    for arg in "$@"; do
-        if ((F_$arg == 1)); then
-            ((F_$arg = 2))
-        else
-            echo "Unkown module: $arg";
-            exit 1;
-        fi
-    done
+  for arg in "$@"; do
+    if ((F_$arg == 1)); then
+      ((F_$arg = 2))
+    else
+      echo "Unkown module: $arg";
+      exit 1;
+    fi
+  done
 fi
 
 mkdir -p "$PREFIX_DIR/include"
@@ -28,14 +28,24 @@ mkdir -p "$WORK_DIR"/pkg
 mkdir -p "$WORK_DIR"/src
 
 # build package
-for pkg in $PKG_LIST; do
-    if ((F_ALL==1 || F_$pkg==2)); then
-        cd $WORK_DIR
-        echo downloading $pkg
-        download_pkg $pkg
-        echo building $pkg
-        rm -rf build && mkdir build && cd build
-        BUILD_$pkg
+if ((F_ALL == 1)); then
+  for pkg in $PKG_DEFAULT_LIST; do
+    cd $WORK_DIR
+    echo downloading $pkg
+    download_pkg $pkg
+    echo building $pkg
+    rm -rf build && mkdir build && cd build
+    BUILD_$pkg
+  done
+else
+  for pkg in $PKG_LIST; do
+    if ((F_$pkg==2)); then
+      cd $WORK_DIR
+      echo downloading $pkg
+      download_pkg $pkg
+      echo building $pkg
+      rm -rf build && mkdir build && cd build
+      BUILD_$pkg
     fi
-done
-
+  done
+fi
