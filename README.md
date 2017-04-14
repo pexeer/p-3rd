@@ -7,8 +7,17 @@ depends on package
 - make
 - cmake
 
+ 
+## support to install package
+- gtest
+- gflags
+- protobuf
+- protobuf3
+- zlib
+- isa-l
 
 
+## how to use
 ```
 # only install protobuf3
 ./build.3rd protobuf3
