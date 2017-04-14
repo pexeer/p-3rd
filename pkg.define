@@ -62,7 +62,7 @@ BUILD_protobuf() {
     cd $build_path
     bash autogen.sh
     ./configure --prefix=$PREFIX_DIR
-    make -j$PARALLEL $install
+    make -j$PARALLEL install
 }
 ## for protobuf3
 URL_protobuf3='https://github.com/google/protobuf/archive/v3.0.0.zip'
@@ -75,7 +75,7 @@ BUILD_protobuf3() {
     cd $build_path
     bash autogen.sh
     ./configure --prefix=$PREFIX_DIR
-    make -j$PARALLEL $install
+    make -j$PARALLEL install
 }
 #################################################
 
