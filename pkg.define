@@ -5,9 +5,9 @@ PREFIX_DIR=$WORK_DIR/installed
 PKG_DIR=$WORK_DIR/pkg
 
 #################################################
-PKG_LIST="gtest gflags protobuf protobuf3 zlib isa-l"
+PKG_LIST="gtest gflags protobuf protobuf3 zlib isa-l gperf"
 #################################################
-PKG_DEFAULT_LIST="gtest gflags protobuf3"
+PKG_DEFAULT_LIST="gtest gflags protobuf3 gperf"
 ## download pkg from internet
 download_pkg() {
     local file_url=0
@@ -83,6 +83,16 @@ BUILD_protobuf3() {
 URL_isa_l='https://github.com/01org/isa-l/archive/v2.17.0.zip'
 BUILD_isa_l() {
     local build_path=$SRC_DIR/isa_l/isa_l
+    cd $build_path
+    bash autogen.sh
+    ./configure --prefix=$PREFIX_DIR --disable-shared
+    make -j$PARALLEL install
+}
+
+## for gperf
+URL_gperf='https://github.com/gperftools/gperftools/archive/gperftools-2.5.zip'
+BUILD_gperf() {
+    local build_path=$SRC_DIR/gperf/gperf
     cd $build_path
     bash autogen.sh
     ./configure --prefix=$PREFIX_DIR --disable-shared
