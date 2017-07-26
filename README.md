@@ -4,8 +4,8 @@ p::3rd, a c++ package manage tool
 used to manage third-party open source package, user-local build and install package automatically.
 
 ![c++11](https://img.shields.io/badge/c++11-only-green.svg)
-![linux](https://img.shields.io/badge/linux-only-green.svg)
 ![amd64](https://img.shields.io/badge/x86--64-only-green.svg)
+![linux](https://img.shields.io/badge/linux-only-green.svg)
 
 Requirements
 ------------
@@ -13,7 +13,7 @@ Requirements
 - bash
 - make
 - cmake
-- g++
+- gcc && g++
 
  
 Support Packages
@@ -25,6 +25,8 @@ Support Packages
 - protobuf
 - zlib
 - isa-l
+- libunwind
+- rapidjson
 
 
 How To Use
