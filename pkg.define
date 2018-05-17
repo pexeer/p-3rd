@@ -27,6 +27,7 @@ download_pkg() {
     cd $src_path && mv -f * $1
     cd $WORK_DIR
 }
+
 ## for googletest
 URL_gtest='https://github.com/google/googletest/archive/master.zip'
 BUILD_gtest() {
@@ -35,6 +36,7 @@ BUILD_gtest() {
     make
     make -j$PARALLEL install
 }
+
 ## for google gflags
 URL_gflags='https://github.com/gflags/gflags/archive/v2.1.2.zip'
 BUILD_gflags() {
@@ -42,6 +44,7 @@ BUILD_gflags() {
     cmake $build_path -DCMAKE_INSTALL_PREFIX=$PREFIX_DIR
     make -j$PARALLEL install
 }
+
 ## for zlib
 URL_zlib='https://github.com/madler/zlib/archive/v1.2.8.zip'
 BUILD_zlib() {
@@ -74,8 +77,7 @@ BUILD_protobuf3() {
         mv $build_path/gmock-1.7.0 $build_path/gmock
     fi
     cd $build_path
-    bash autogen.sh
-    ./configure --prefix=$PREFIX_DIR --disable-shared
+    cmake $build_path/cmake -DCMAKE_INSTALL_PREFIX=$PREFIX_DIR
     make -j$PARALLEL install
 }
 
