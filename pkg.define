@@ -82,7 +82,7 @@ BUILD_protobuf3() {
 }
 
 ## for isa-l
-URL_isa_l='https://github.com/01org/isa-l/archive/v2.17.0.zip'
+URL_isa_l='https://github.com/01org/isa-l/archive/v2.20.0.zip'
 BUILD_isa_l() {
     local build_path=$SRC_DIR/isa_l/isa_l
     cd $build_path
@@ -92,7 +92,7 @@ BUILD_isa_l() {
 }
 
 ## for gperf
-URL_gperf='https://github.com/gperftools/gperftools/archive/gperftools-2.5.zip'
+URL_gperf='https://github.com/gperftools/gperftools/archive/gperftools-2.6.1.zip'
 BUILD_gperf() {
     local build_path=$SRC_DIR/gperf/gperf
     cd $build_path
