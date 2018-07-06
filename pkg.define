@@ -5,7 +5,7 @@ PREFIX_DIR=$WORK_DIR/installed
 PKG_DIR=$WORK_DIR/pkg
 
 #################################################
-PKG_LIST="gtest gflags protobuf protobuf3 zlib isa-l gperf libunwind rapidjson"
+PKG_LIST="gtest gflags protobuf protobuf3 zlib isa-l gperf libunwind rapidjson cryptopp"
 #################################################
 PKG_DEFAULT_LIST="gtest gflags protobuf3 gperf libunwind"
 ## download pkg from internet
@@ -119,6 +119,16 @@ BUILD_rapidjson() {
     cmake $build_path -DCMAKE_INSTALL_PREFIX=$PREFIX_DIR
     make
     make -j$PARALLEL install
+}
+
+# for 
+URL_cryptopp="https://github.com/weidai11/cryptopp/archive/CRYPTOPP_7_0_0.zip"
+BUILD_cryptopp() {
+    local build_path=$SRC_DIR/cryptopp/cryptopp
+    cd $build_path
+    export PREFIX=$PREFIX_DIR
+    make -j$PARALLEL
+    make install
 }
 
 #################################################
