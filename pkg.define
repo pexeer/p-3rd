@@ -5,9 +5,20 @@ PREFIX_DIR=$WORK_DIR/installed
 PKG_DIR=$WORK_DIR/pkg
 
 #################################################
-PKG_LIST="gtest gflags protobuf protobuf3 zlib isa-l gperf libunwind rapidjson cryptopp"
+PKG_LIST="gtest \
+    gflags \
+    protobuf \
+    protobuf3 \
+    zlib \
+    isa-l \
+    gperf \
+    libunwind \
+    rapidjson \
+    cryptopp \
+    flatbuffers"
 #################################################
 PKG_DEFAULT_LIST="gtest gflags protobuf3 gperf libunwind"
+
 ## download pkg from internet
 download_pkg() {
     local file_url=0
@@ -101,7 +112,7 @@ BUILD_gperf() {
     make -j$PARALLEL install
 }
 
-# for libunwind
+## for libunwind
 URL_libunwind='https://github.com/libunwind/libunwind/archive/v1.2.1.zip'
 BUILD_libunwind() {
     local build_path=$SRC_DIR/libunwind/libunwind
@@ -111,7 +122,7 @@ BUILD_libunwind() {
     make -j$PARALLEL install
 }
 
-# for rapidjson
+## for rapidjson
 URL_rapidjson="https://github.com/miloyip/rapidjson/archive/v1.1.0.zip"
 BUILD_rapidjson() {
     local build_path=$SRC_DIR/rapidjson/rapidjson
@@ -121,7 +132,7 @@ BUILD_rapidjson() {
     make -j$PARALLEL install
 }
 
-# for 
+## for cryptopp
 URL_cryptopp="https://github.com/weidai11/cryptopp/archive/CRYPTOPP_7_0_0.zip"
 BUILD_cryptopp() {
     local build_path=$SRC_DIR/cryptopp/cryptopp
@@ -129,6 +140,15 @@ BUILD_cryptopp() {
     export PREFIX=$PREFIX_DIR
     make -j$PARALLEL
     make install
+}
+
+## for flatbuffers
+URL_flatbuffers="https://github.com/google/flatbuffers/archive/1.11.0.zip"
+BUILD_flatbuffers() {
+    local build_path=$SRC_DIR/flatbuffers/flatbuffers
+    cmake $build_path -DCMAKE_INSTALL_PREFIX=$PREFIX_DIR
+    make
+    make -j$PARALLEL install
 }
 
 #################################################

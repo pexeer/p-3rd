@@ -27,7 +27,8 @@ Support Packages
 - isa-l
 - libunwind
 - rapidjson
-
+- cryptopp
+- flatbuffers
 
 How To Use
 ------------
@@ -39,6 +40,7 @@ How To Use
 # only install zlib
 ./build.3rd zlib
 
-# this command will install default package list, which is (gtest + gflags + protobuf3)
+# this command will install default package list
+# (gtest + gflags + protobuf3 + gperf + libunwind)
 ./build.3rd
 ```
